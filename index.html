@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shreechendur Traders | Kalambur Rice Exports</title>
+    
+    <link href="link.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- 1. GLOBAL STYLES --- */
+        :root {
+            --primary-green: #1B5E20; 
+            --accent-green: #43A047;  
+            --gold: #FFD700;          
+            --light-green: #F1F8E9;   
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 2. NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            font-weight: 600; font-size: 0.9rem; color: var(--text-dark);
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent-green); }
+
+        /* --- 3. HERO SECTION (SLIDER ANIMATION) --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+            background: #000; /* Fallback */
+        }
+
+        /* The Slider Container (Behind Text) */
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind content */
+        }
+
+        /* Individual Slides */
+        .hero-slider div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; /* Hidden by default */
+            /* Animation: Name | Duration | Infinite Loop */
+            animation: slideShow 8s infinite linear; 
+        }
+
+        /* --- IMAGE LINKS & TIMING (2 seconds each) --- */
+        .hero-slider div:nth-child(1) {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-1.png');
+            animation-delay: 0s;
+        }
+
+        .hero-slider div:nth-child(2) {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-2.png');
+            animation-delay: 2s;
+        }
+
+        .hero-slider div:nth-child(3) {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-3.png');
+            animation-delay: 4s;
+        }
+
+        .hero-slider div:nth-child(4) {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-4.png');
+            animation-delay: 6s;
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideShow {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; }   /* Fade In */
+            25% { opacity: 1; }  /* Stay Visible */
+            30% { opacity: 0; transform: scale(1.05); } /* Fade Out & Zoom */
+            100% { opacity: 0; }
+        }
+
+        /* Ensure Text is on top */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem; font-weight: 800; margin-bottom: 15px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem; font-weight: 300; margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .tagline {
+            background: var(--accent-green); padding: 8px 20px; border-radius: 30px;
+            display: inline-block; margin-bottom: 25px; font-weight: 700;
+            text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;
+        }
+
+        .btn-main {
+            padding: 15px 40px;
+            background: var(--white); color: var(--primary-green);
+            border-radius: 50px; font-weight: 700; border: none; cursor: pointer;
+            transition: 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: inline-block;
+        }
+        .btn-main:hover { transform: translateY(-3px); background: var(--gold); color: #000; }
+
+        /* --- 4. RICE VARIETIES (GRID) --- */
+        .section { padding: 80px 10%; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 10px; }
+
+        .rice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .rice-card {
+            background: var(--white); border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #eee;
+            transition: 0.3s; cursor: pointer;
+        }
+        .rice-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+
+        .rice-img-box { height: 250px; width: 100%; overflow: hidden; }
+        .rice-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .rice-card:hover .rice-img-box img { transform: scale(1.1); }
+
+        .rice-info { padding: 20px; text-align: center; }
+        .rice-info h3 { color: var(--primary-green); margin-bottom: 5px; }
+
+        /* --- 5. POPUP MODAL --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
+            justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white); width: 90%; max-width: 900px;
+            border-radius: 20px; display: flex; overflow: hidden; position: relative;
+            max-height: 90vh; overflow-y: auto;
+        }
+
+        .modal-img { flex: 1; min-height: 300px; }
+        .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .modal-details { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+        .close-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 30px;
+            cursor: pointer; color: #555; z-index: 10;
+        }
+
+        /* Enquiry Buttons inside Modal */
+        .enquiry-options { display: none; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-option {
+            display: block; padding: 12px; text-align: center; border-radius: 8px;
+            color: white; font-weight: 600; margin-bottom: 5px;
+        }
+        .btn-call { background: #0288D1; }
+        .btn-mail { background: #D32F2F; }
+        .btn-msg { background: #25D366; }
+
+        /* --- 6. SERVICES & ABOUT --- */
+        .services-section { background-color: var(--light-green); }
+        .services-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+        .service-card {
+            background: var(--white); padding: 30px; border-radius: 15px;
+            text-align: center; box-shadow: var(--shadow);
+            border-bottom: 4px solid var(--accent-green);
+        }
+        .service-icon { font-size: 3rem; color: var(--primary-green); margin-bottom: 20px; }
+
+        .about-content { display: flex; align-items: center; gap: 50px; }
+        .about-text { flex: 1; }
+        .about-img { flex: 1; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+        .about-img img { width: 100%; display: block; }
+
+        /* --- 7. CONTACT --- */
+        .contact-section { background: var(--primary-green); color: var(--white); text-align: center; }
+        .contact-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px; }
+        .contact-box {
+            background: rgba(255,255,255,0.15); padding: 30px; border-radius: 15px;
+            min-width: 250px; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .contact-box p { font-size: 1.3rem; font-weight: 700; color: var(--gold); margin-top: 10px; }
+
+        footer { background: #111; color: #aaa; text-align: center; padding: 20px; font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .modal-content { flex-direction: column; }
+            .services-container { grid-template-columns: 1fr; }
+            .about-content { flex-direction: column-reverse; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <img src="sct.png" alt="Shreechendur Logo">
+            <span>Shreechendur Trader</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#varieties">Rice</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        
+        <div class="hero-slider">
+            <div></div> <div></div> <div></div> <div></div> </div>
+
+        <div class="hero-content">
+            <div class="tagline">From Kalambur - The Rice King of India</div>
+            <h1>Premium Rice Exports</h1>
+            <p>Purity in every grain. Quality in every bag.</p>
+            <a href="#varieties" class="btn-main">View Our Products</a>
+        </div>
+    </section>
+
+    <section id="varieties" class="section">
+        <div class="section-title">
+            <h2>Our Premium Varieties</h2>
+            <p>Click on any product to see full details and enquire.</p>
+        </div>
+        <div class="rice-grid" id="riceGrid">
+            </div>
+    </section>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-img">
+                <img id="modalImg" src="" alt="Rice Detail">
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle" style="color: var(--primary-green); margin-bottom: 10px;">Product Name</h2>
+                <p id="modalDesc" style="color: #555; line-height: 1.6;">Description goes here.</p>
+                
+                <button id="mainEnquireBtn" class="btn-main" style="background: var(--primary-green); color: white; width: 100%; margin-top: 20px;">
+                    Enquire Now
+                </button>
+
+                <div id="enquiryOptions" class="enquiry-options">
+                    <p style="text-align: center; color: #666; font-size: 0.9rem;">Select an option:</p>
+                    <a href="tel:+917045037234" class="btn-option btn-call"><i class="fa-solid fa-phone"></i> Call Now</a>
+                    <a href="mailto:contact@shreechendur.com" class="btn-option btn-mail"><i class="fa-solid fa-envelope"></i> Send Email</a>
+                    <a href="https://wa.me/917045037234" class="btn-option btn-msg"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="services" class="section services-section">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>We serve the best to the world</p>
+        </div>
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-shekel-sign"></i></div>
+                <h3>Products</h3>
+                <p>9 Distinct varieties directly sourced from manufacturers in Kalambur.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-truck-plane"></i></div>
+                <h3>Exports</h3>
+                <p>Reliable logistics supplying all over the country with bulk handling capabilities.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-store"></i></div>
+                <h3>Online Stores</h3>
+                <p>Digital availability for direct-to-consumer purchases via our partners.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="about-content">
+            <div class="about-text">
+                <h4 style="color: var(--accent-green);">WHO WE ARE</h4>
+                <h2 style="font-size: 2.5rem; margin: 10px 0; color: var(--primary-green);">Shreechendur Traders</h2>
+                <p style="margin-bottom: 20px; line-height: 1.8;">
+                    We hail from <strong>Kalambur Pride</strong>, known affectionately as the "Rice for Soul". This region is renowned for yielding the finest paddy and maintaining the highest standards in rice cultivation for generations.
+                </p>
+                <p style="line-height: 1.8;">
+                    Our mission is to bridge the gap between the fertile fields of Tamil Nadu and your plate.
+                </p>
+            </div>
+            <div class="about-img">
+                <img src="logo.jpeg" alt="Paddy Field">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <h2>Contact Us</h2>
+        <p>Get in touch for premium bulk orders</p>
+        
+        <div class="contact-container">
+            <div class="contact-box">
+                <i class="fa-solid fa-user-tie" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3>Mr. Saravanan T</h3>
+                <p>+91 70450 37234</p>
+            </div>
+            <div class="contact-box">
+                <i class="fa-solid fa-user-tie" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3>Mr. Nandhish</h3>
+                <p>+91 63836 15066</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; font-size: 1.1rem;">
+            <p style="margin-bottom: 5px;"><i class="fa-solid fa-location-dot"></i> 3/211, Vani Street, Nadukuppam, Arni - 606903</p>
+            <p><i class="fa-solid fa-envelope"></i> contact@shreechendur.com</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Shreechendur Traders. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- 1. DATA: 9 Rice Varieties ---
+        const riceVarieties = [
+            { name: "1. RNR", img: "rnr.png", desc: "Aromatic, fine grain rice known for its low glycemic index, making it ideal for health-conscious consumers." },
+            { name: "2. Siri", img: "siri.png", desc: "Known for its rich taste and fluffy texture upon cooking. A staple for special occasions." },
+            { name: "3. BPT", img: "bpt.jpeg", desc: "Also known as Sona Masoori, this lightweight and aromatic rice is perfect for daily meals." },
+            { name: "4. Mahindra 606", img: "mahindra.jpeg", desc: "A robust variety with excellent yield and grain quality, preferred for bulk catering." },
+            { name: "5. Sathayu", img: "sathayu.jpeg", desc: "A traditional variety known for its longevity and retention of freshness after cooking." },
+            { name: "6. Om 3", img: "om3.jpeg", desc: "High-quality grain with a distinct texture, widely used in South Indian cuisine." },
+            { name: "7. White Ponni", img: "white-ponni.jpeg", desc: "The classic Tamil Nadu favorite. Soft, tasty, and perfect for Sambar and Rasam." },
+            { name: "8. Co 51", img: "co51.jpeg", desc: "A modern high-yield variety that ensures consistency in grain size and cooking time." },
+            { name: "9. ADT 37", img: "adt37.jpeg", desc: "Short grain variety, excellent for making idli and dosa batter due to its fermentation qualities." }
+        ];
+
+        // --- 2. RENDER GRID ---
+        const grid = document.getElementById('riceGrid');
+        
+        riceVarieties.forEach(rice => {
+            const card = document.createElement('div');
+            card.className = 'rice-card';
+            card.innerHTML = `
+                <div class="rice-img-box">
+                    <img src="${rice.img}" alt="${rice.name}">
+                </div>
+                <div class="rice-info">
+                    <h3>${rice.name}</h3>
+                    <p style="font-size:0.9rem; color:#888;">Tap for Details</p>
+                </div>
+            `;
+            // Add click listener
+            card.addEventListener('click', () => openModal(rice));
+            grid.appendChild(card);
+        });
+
+        // --- 3. MODAL & ENQUIRY LOGIC ---
+        const modal = document.getElementById('productModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        const mainEnquireBtn = document.getElementById('mainEnquireBtn');
+        const enquiryOptions = document.getElementById('enquiryOptions');
+
+        function openModal(rice) {
+            modal.style.display = 'flex';
+            modalImg.src = rice.img;
+            modalTitle.innerText = rice.name;
+            modalDesc.innerText = rice.desc;
+            
+            // Reset state
+            mainEnquireBtn.style.display = 'block';
+            enquiryOptions.style.display = 'none';
+        }
+
+        // When "Enquire Now" is clicked
+        mainEnquireBtn.addEventListener('click', () => {
+            mainEnquireBtn.style.display = 'none';
+            enquiryOptions.style.display = 'flex';
+        });
+
+        // Close Modal
+        closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+        window.onclick = function(event) {
+            if (event.target == modal) { modal.style.display = 'none'; }
+        }
+    </script>
+</body>
+</html>
