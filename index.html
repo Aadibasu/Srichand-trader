@@ -9,7 +9,7 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="sct.png" as="image">
-    <link rel="preload" href="bg-1.png" as="image">
+    <link rel="preload" href="sct.mp4" as="video">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
@@ -88,7 +88,7 @@
         }
         .nav-links a:hover { color: var(--accent-green); }
 
-        /* --- 3. HERO SECTION (SLIDER ANIMATION) --- */
+        /* --- 3. HERO SECTION (VIDEO BACKGROUND) --- */
         .hero {
             position: relative;
             height: 90vh;
@@ -98,62 +98,54 @@
             text-align: center;
             color: var(--white);
             overflow: hidden;
-            background: #000 linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-1.png') center/cover no-repeat;
             contain: layout style paint;
         }
 
-        /* The Slider Container (Behind Text) */
-        .hero-slider {
+        /* Video Container */
+        .hero-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Behind content */
+            z-index: 0;
+            object-fit: cover;
         }
 
-        /* Individual Slides */
-        .hero-slider div {
+        /* Dark Overlay */
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            will-change: opacity;
-            animation: slideShow 20s infinite linear; 
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
-        /* --- IMAGE LINKS & TIMING (5 seconds each image) --- */
-        .hero-slider div:nth-child(1) {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-1.png');
-            animation-delay: 0s;
+        /* Mute Button */
+        .mute-btn {
+            position: absolute;
+            top: 80px;
+            right: 30px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--white);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hero-slider div:nth-child(2) {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-2.png');
-            animation-delay: 5s;
-        }
-
-        .hero-slider div:nth-child(3) {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-3.png');
-            animation-delay: 10s;
-        }
-
-        .hero-slider div:nth-child(4) {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('bg-4.png');
-            animation-delay: 15s;
-        }
-
-        /* Animation Keyframes - GPU Accelerated */
-        @keyframes slideShow {
-            0% { opacity: 0; }
-            2.5% { opacity: 1; }
-            22.5% { opacity: 1; }
-            25% { opacity: 0; }
-            100% { opacity: 0; }
+        .mute-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
         }
 
         /* Ensure Text is on top */
@@ -282,6 +274,7 @@
             .nav-links a { font-size: 0.8rem; }
             .hero-content h1 { font-size: 3rem; }
             .hero-content p { font-size: 1.2rem; }
+            .mute-btn { top: 70px; right: 20px; width: 45px; height: 45px; font-size: 1.2rem; }
             .section { padding: 60px 8%; }
             .rice-grid { gap: 20px; }
             .services-container { gap: 20px; }
@@ -301,6 +294,7 @@
             .hero-content p { font-size: 0.9rem; }
             .tagline { font-size: 0.75rem; padding: 6px 15px; }
             .btn-main { padding: 12px 30px; font-size: 0.9rem; }
+            .mute-btn { top: 65px; right: 15px; width: 42px; height: 42px; font-size: 1rem; }
             
             .section { padding: 40px 5%; }
             .section-title h2 { font-size: 1.8rem; }
@@ -340,6 +334,7 @@
             .hero-content p { font-size: 0.8rem; margin-bottom: 15px; }
             .tagline { font-size: 0.7rem; padding: 5px 12px; }
             .btn-main { padding: 10px 25px; font-size: 0.8rem; }
+            .mute-btn { top: 60px; right: 10px; width: 40px; height: 40px; font-size: 0.9rem; }
             
             .section { padding: 30px 4%; }
             .section-title h2 { font-size: 1.5rem; margin-bottom: 20px; }
@@ -419,9 +414,16 @@
 
     <main>
         <section id="home" class="hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="sct.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             
-            <div class="hero-slider">
-                <div></div> <div></div> <div></div> <div></div> </div>
+            <div class="hero-overlay"></div>
+
+            <button class="mute-btn" id="muteBtn">
+                <i class="fas fa-volume-mute"></i>
+            </button>
 
             <div class="hero-content">
                 <div class="tagline">From Kalambur - The Rice King of India</div>
@@ -539,15 +541,27 @@
         function initApp(){const r=[{name:"1. RNR",img:"rnr.png",desc:"Aromatic, fine grain rice known for its low glycemic index, making it ideal for health-conscious consumers."},{name:"2. Siri",img:"siri.png",desc:"Known for its rich taste and fluffy texture upon cooking. A staple for special occasions."},{name:"3. BPT",img:"bpt.jpeg",desc:"Also known as Sona Masoori, this lightweight and aromatic rice is perfect for daily meals."},{name:"4. Mahindra 606",img:"mahindra.jpeg",desc:"A robust variety with excellent yield and grain quality, preferred for bulk catering."},{name:"5. Sathayu",img:"sathayu.jpeg",desc:"A traditional variety known for its longevity and retention of freshness after cooking."},{name:"6. Om 3",img:"om3.jpeg",desc:"High-quality grain with a distinct texture, widely used in South Indian cuisine."},{name:"7. White Ponni",img:"white-ponni.jpeg",desc:"The classic Tamil Nadu favorite. Soft, tasty, and perfect for Sambar and Rasam."},{name:"8. Co 51",img:"co51.jpeg",desc:"A modern high-yield variety that ensures consistency in grain size and cooking time."},{name:"9. ADT 37",img:"adt37.jpeg",desc:"Short grain variety, excellent for making idli and dosa batter due to its fermentation qualities."}];const e=document.getElementById("riceGrid");r.forEach(i=>{const d=document.createElement("div");d.className="rice-card",d.innerHTML=`<div class="rice-img-box"><img src="" data-src="${i.img}" alt="${i.name}" loading="lazy" width="300" height="250"></div><div class="rice-info"><h3>${i.name}</h3><p style="font-size:0.9rem;">Tap for Details</p></div>`,d.addEventListener("click",()=>openModal(i)),e.appendChild(d)});const t=document.getElementById("productModal"),a=document.getElementById("modalImg"),o=document.getElementById("modalTitle"),l=document.getElementById("modalDesc"),c=document.querySelector(".close-btn"),s=document.getElementById("mainEnquireBtn"),n=document.getElementById("enquiryOptions");function openModal(i){t.style.display="flex",a.src=i.img,o.innerText=i.name,l.innerText=i.desc,s.style.display="block",n.style.display="none"}s.addEventListener("click",()=>{s.style.display="none",n.style.display="flex"}),c.addEventListener("click",e=>{e.stopPropagation(),t.style.display="none"}),t.addEventListener("click",function(i){i.target===t&&(t.style.display="none")});const m=new IntersectionObserver((i,d)=>{i.forEach(i=>{if(i.isIntersecting){const e=i.target;e.src=e.dataset.src,e.removeAttribute("data-src"),d.unobserve(e)}})},{rootMargin:"50px"});setTimeout(()=>{document.querySelectorAll("img[data-src]").forEach(i=>{m.observe(i)})},100)}
         
         if("loading"===document.readyState)document.addEventListener("DOMContentLoaded",initApp,{once:!0});else initApp();
+
+        // Video Mute/Unmute Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const muteBtn = document.getElementById('muteBtn');
+            const video = document.querySelector('.hero-video');
+            
+            muteBtn.addEventListener('click', function() {
+                if (video.muted) {
+                    video.muted = false;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    video.muted = true;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+            });
+        });
     </script>
 
     <!-- Performance Tips for Lighthouse -->
-    <!-- 1. Compress all images (bg-*.png, rice images) to WebP format with fallback -->
-    <!-- 2. Use <picture> element with srcset for responsive images -->
-    <!-- 3. Add font-display: swap to prevent font blocking -->
-    <!-- 4. Consider code splitting for modal functionality -->
-    <!-- 5. Enable GZIP compression on your server -->
-    <!-- 6. Set appropriate cache headers for images -->
-    <!-- 7. Minify CSS and JS for production -->
-</body>
-</html>
+    <!-- 1. Compress video (sct.mp4) for faster loading -->
+    <!-- 2. Use appropriate video codec (H.264 for better compatibility) -->
+    <!-- 3. Consider using WebM format with fallback -->
+    <!-- 4. Enable GZIP compression on your server -->
+    <!-- 5. Set appropriate cache headers for video -->
