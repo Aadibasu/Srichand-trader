@@ -9,7 +9,7 @@
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="sct.png" as="image">
-    <link rel="preload" href="sct.mp4" as="video">
+    <link rel="preload" href="final_sct.mp4" as="video">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
@@ -35,7 +35,9 @@
             --light-green: #F1F8E9;   
             --white: #ffffff;
             --text-dark: #2c3e50;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -45,6 +47,7 @@
             color: var(--text-dark);
             background-color: var(--white);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -61,7 +64,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(27, 94, 32, 0.08);
+            backdrop-filter: blur(10px);
             contain: layout style paint;
         }
 
@@ -84,9 +88,15 @@
         .nav-links { display: flex; gap: 30px; }
         .nav-links a {
             font-weight: 600; font-size: 0.9rem; color: var(--text-dark);
-            text-transform: uppercase; transition: 0.3s;
+            text-transform: uppercase; 
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 3px;
         }
-        .nav-links a:hover { color: var(--accent-green); }
+        .nav-links a:hover { 
+            color: var(--accent-green); 
+            border-bottom: 2px solid var(--accent-green);
+        }
 
         /* --- 3. HERO SECTION (VIDEO BACKGROUND) --- */
         .hero {
@@ -155,34 +165,82 @@
         }
 
         .hero-content h1 {
-            font-size: 4rem; font-weight: 800; margin-bottom: 15px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            font-size: 4rem; 
+            font-weight: 800; 
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            letter-spacing: -1px;
         }
 
         .hero-content p {
-            font-size: 1.5rem; font-weight: 300; margin-bottom: 30px;
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            margin-bottom: 30px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            line-height: 1.8;
         }
 
         .tagline {
-            background: var(--accent-green); padding: 8px 20px; border-radius: 30px;
-            display: inline-block; margin-bottom: 25px; font-weight: 700;
-            text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent-green), #66BB6A); 
+            padding: 10px 25px; 
+            border-radius: 50px;
+            display: inline-block; 
+            margin-bottom: 25px; 
+            font-weight: 700;
+            text-transform: uppercase; 
+            font-size: 0.9rem; 
+            letter-spacing: 2px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.4);
         }
 
         .btn-main {
-            padding: 15px 40px;
-            background: var(--white); color: var(--primary-green);
-            border-radius: 50px; font-weight: 700; border: none; cursor: pointer;
-            transition: 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            padding: 16px 45px;
+            background: linear-gradient(135deg, var(--white), #f5f5f5); 
+            color: var(--primary-green);
+            border-radius: 50px; 
+            font-weight: 700; 
+            border: none; 
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             display: inline-block;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .btn-main:hover { transform: translateY(-3px); background: var(--gold); color: #000; }
+        
+        .btn-main:hover { 
+            transform: translateY(-4px); 
+            background: var(--gold);
+            color: #000; 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
 
         /* --- 4. RICE VARIETIES (GRID) --- */
         .section { padding: 80px 10%; }
         .section-title { text-align: center; margin-bottom: 50px; }
-        .section-title h2 { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 10px; }
+        .section-title h2 { 
+            font-size: 2.8rem; 
+            color: var(--primary-green); 
+            margin-bottom: 15px;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--gold));
+            border-radius: 2px;
+        }
 
         .rice-grid {
             display: grid;
@@ -191,63 +249,234 @@
         }
 
         .rice-card {
-            background: var(--white); border-radius: 15px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #eee;
-            transition: 0.3s; cursor: pointer;
+            background: var(--white); 
+            border-radius: 18px; 
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+            border: 1px solid #f0f0f0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1); 
+            cursor: pointer;
+            position: relative;
         }
-        .rice-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        
+        .rice-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--accent-green);
+        }
 
-        .rice-img-box { height: 250px; width: 100%; overflow: hidden; contain: strict; }
-        .rice-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; will-change: transform; }
-        .rice-card:hover .rice-img-box img { transform: scale(1.1); }
+        .rice-img-box { height: 250px; width: 100%; overflow: hidden; contain: strict; position: relative; }
+        .rice-img-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.320, 1); 
+            will-change: transform; 
+        }
+        .rice-card:hover .rice-img-box img { transform: scale(1.08); }
+        
+        .rice-img-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top, rgba(27, 94, 32, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .rice-card:hover .rice-img-box::after {
+            opacity: 1;
+        }
 
-        .rice-info { padding: 20px; text-align: center; }
-        .rice-info h3 { color: var(--primary-green); margin-bottom: 5px; font-weight: 600; }
-        .rice-info p { color: #666; font-weight: 500; }
+        .rice-info { 
+            padding: 25px; 
+            text-align: center; 
+            position: relative;
+        }
+        .rice-info h3 { 
+            color: var(--primary-green); 
+            margin-bottom: 8px; 
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .rice-info p { 
+            color: #777; 
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
 
         /* --- 5. POPUP MODAL --- */
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.85);
             justify-content: center; align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .modal-content {
-            background-color: var(--white); width: 90%; max-width: 900px;
-            border-radius: 20px; display: flex; overflow: hidden; position: relative;
-            max-height: 90vh; overflow-y: auto;
+            background-color: var(--white); 
+            width: 90%; 
+            max-width: 900px;
+            border-radius: 25px; 
+            display: flex; 
+            overflow: hidden; 
+            position: relative;
+            max-height: 90vh; 
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
         }
 
-        .modal-img { flex: 1; min-height: 300px; }
-        .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-img { 
+            flex: 1; 
+            min-height: 300px; 
+            position: relative;
+            overflow: hidden;
+        }
+        .modal-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+        }
 
-        .modal-details { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .modal-details { 
+            flex: 1; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-green) 100%);
+        }
 
         .close-btn {
-            position: absolute; top: 15px; right: 20px; font-size: 30px;
-            cursor: pointer; color: #555; z-index: 10;
+            position: absolute; 
+            top: 15px; 
+            right: 20px; 
+            font-size: 30px;
+            cursor: pointer; 
+            color: #555; 
+            z-index: 10;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .close-btn:hover {
+            background: var(--accent-green);
+            color: white;
+            transform: rotate(90deg);
         }
 
         /* Enquiry Buttons inside Modal */
-        .enquiry-options { display: none; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .btn-option {
-            display: block; padding: 12px; text-align: center; border-radius: 8px;
-            color: white; font-weight: 600; margin-bottom: 5px;
+        .enquiry-options { 
+            display: none; 
+            flex-direction: column; 
+            gap: 12px; 
+            margin-top: 25px; 
         }
-        .btn-call { background: #0288D1; }
-        .btn-mail { background: #D32F2F; }
-        .btn-msg { background: #25D366; }
+        .btn-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px; 
+            text-align: center; 
+            border-radius: 12px;
+            color: white; 
+            font-weight: 700; 
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            font-size: 1rem;
+        }
+        
+        .btn-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-call { 
+            background: linear-gradient(135deg, #0288D1, #0277BD);
+        }
+        .btn-mail { 
+            background: linear-gradient(135deg, #D32F2F, #C62828);
+        }
+        .btn-msg { 
+            background: linear-gradient(135deg, #25D366, #20C45C);
+        }
 
         /* --- 6. SERVICES & ABOUT --- */
-        .services-section { background-color: var(--light-green); }
+        .services-section { background: linear-gradient(135deg, var(--light-green) 0%, #E8F5E9 100%); }
         .services-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
         .service-card {
-            background: var(--white); padding: 30px; border-radius: 15px;
-            text-align: center; box-shadow: var(--shadow);
-            border-bottom: 4px solid var(--accent-green);
+            background: var(--white); 
+            padding: 40px 30px; 
+            border-radius: 18px;
+            text-align: center; 
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f0f0f0;
+            border-top: 5px solid var(--accent-green);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .service-icon { font-size: 3rem; color: var(--primary-green); margin-bottom: 20px; }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transition: left 0.5s;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: var(--accent-green);
+        }
+        
+        .service-icon { 
+            font-size: 3.5rem; 
+            color: var(--primary-green); 
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            color: var(--accent-green);
+            transform: scale(1.15);
+        }
 
         .about-content { display: flex; align-items: center; gap: 50px; }
         .about-text { flex: 1; }
@@ -255,15 +484,60 @@
         .about-img img { width: 100%; display: block; }
 
         /* --- 7. CONTACT --- */
-        .contact-section { background: var(--primary-green); color: var(--white); text-align: center; }
-        .contact-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px; }
+        .contact-section { background: linear-gradient(135deg, var(--primary-green) 0%, #0D3817 100%); color: var(--white); text-align: center; }
+        .contact-container { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 40px; }
         .contact-box {
-            background: rgba(255,255,255,0.15); padding: 30px; border-radius: 15px;
-            min-width: 250px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); 
+            padding: 40px 35px; 
+            border-radius: 20px;
+            min-width: 280px; 
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
-        .contact-box p { font-size: 1.3rem; font-weight: 700; color: var(--gold); margin-top: 10px; }
+        
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .contact-box:hover::before {
+            left: 100%;
+        }
+        
+        .contact-box:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .contact-box p { 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            color: var(--gold); 
+            margin-top: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-        footer { background: #111; color: #aaa; text-align: center; padding: 20px; font-size: 0.8rem; }
+        footer { 
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%); 
+            color: #bbb; 
+            text-align: center; 
+            padding: 30px 20px; 
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
 
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 1024px) {
@@ -415,7 +689,7 @@
     <main>
         <section id="home" class="hero">
             <video class="hero-video" autoplay muted loop playsinline>
-                <source src="sct.mp4" type="video/mp4">
+                <source src="final_sct.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             
@@ -426,7 +700,7 @@
             </button>
 
             <div class="hero-content">
-                <div class="tagline">From Kalambur - The Rice King of India</div>
+                <div class="tagline">From Kalambur - THE LAND OF RICE</div>
                 <h1>Premium Rice Exports</h1>
                 <p>Purity in every grain. Quality in every bag.</p>
                 <a href="#varieties" class="btn-main">View Our Products</a>
@@ -435,7 +709,7 @@
 
     <section id="varieties" class="section">
         <div class="section-title">
-            <h2>Our Premium Varieties</h2>
+            <h2> Varieties</h2>
             <p>Click on any product to see full details and enquire.</p>
         </div>
         <div class="rice-grid" id="riceGrid">
@@ -460,22 +734,35 @@
                     <p style="text-align: center; color: #666; font-size: 0.9rem;">Select an option:</p>
                     <a href="tel:+917045037234" class="btn-option btn-call"><i class="fa-solid fa-phone"></i> Call Now</a>
                     <a href="mailto:contact@shreechendur.com" class="btn-option btn-mail"><i class="fa-solid fa-envelope"></i> Send Email</a>
-                    <a href="https://wa.me/917045037234" class="btn-option btn-msg"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    <a id="whatsappLink" href="https://wa.me/917045037234" class="btn-option btn-msg"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-btn" onclick="closeContactModal()">&times;</span>
+            <h2 id="contactName" style="color: var(--primary-green); margin-bottom: 20px; text-align: center;">Contact</h2>
+            <p id="contactPhone" style="text-align: center; font-size: 1.1rem; margin-bottom: 30px; color: #666;"></p>
+            
+            <div id="contactOptions" style="display: flex; flex-direction: column; gap: 15px;">
+                <a id="contactCall" href="tel:" class="btn-option btn-call" style="text-align: center; padding: 12px;"><i class="fa-solid fa-phone"></i> Call Now</a>
+                <a id="contactWhatsapp" href="https://wa.me/" class="btn-option btn-msg" style="text-align: center; padding: 12px;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             </div>
         </div>
     </div>
 
     <section id="services" class="section services-section">
         <div class="section-title">
-            <h2>Our Services</h2>
+            <h2>Services</h2>
             <p>We serve the best to the world</p>
         </div>
         <div class="services-container">
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-shekel-sign"></i></div>
                 <h3>Products</h3>
-                <p>9 Distinct varieties directly sourced from manufacturers in Kalambur.</p>
+                <p>9 Distinct varieties directly sourced from manufacturers</p>
             </div>
             <div class="service-card">
                 <div class="service-icon"><i class="fa-solid fa-truck-plane"></i></div>
@@ -499,7 +786,7 @@
                     We hail from <strong>Kalambur Pride</strong>, known affectionately as the "Rice for Soul". This region is renowned for yielding the finest paddy and maintaining the highest standards in rice cultivation for generations.
                 </p>
                 <p style="line-height: 1.8;">
-                    Our mission is to bridge the gap between the fertile fields of Tamil Nadu and your plate.
+                    Our mission is to bridge the gap between the fertile fields of Tamil Nadu and your plate,We directly giving seeds or pesticides to our renowed farmers getting back there paddy to be processed in Rice Mills and exported as Rice to all over the world.
                 </p>
             </div>
             <div class="about-img">
@@ -509,16 +796,16 @@
     </section>
 
     <section id="contact" class="section contact-section">
-        <h2>Contact Us</h2>
+        <h2>Contact</h2>
         <p>Get in touch for premium bulk orders</p>
         
         <div class="contact-container">
-            <div class="contact-box">
+            <div class="contact-box" onclick="handleContactClick('Saravanan T', '+917045037234')" style="cursor: pointer;">
                 <i class="fa-solid fa-user-tie" style="font-size: 2rem; margin-bottom: 10px;"></i>
                 <h3>Mr. Saravanan T</h3>
                 <p>+91 70450 37234</p>
             </div>
-            <div class="contact-box">
+            <div class="contact-box" onclick="handleContactClick('Nandhish', '+916383615066')" style="cursor: pointer;">
                 <i class="fa-solid fa-user-tie" style="font-size: 2rem; margin-bottom: 10px;"></i>
                 <h3>Mr. Nandhish</h3>
                 <p>+91 63836 15066</p>
@@ -538,9 +825,40 @@
 
     <script defer>
         // Minified app initialization
-        function initApp(){const r=[{name:"1. RNR",img:"rnr.png",desc:"Aromatic, fine grain rice known for its low glycemic index, making it ideal for health-conscious consumers."},{name:"2. Siri",img:"siri.png",desc:"Known for its rich taste and fluffy texture upon cooking. A staple for special occasions."},{name:"3. BPT",img:"bpt.jpeg",desc:"Also known as Sona Masoori, this lightweight and aromatic rice is perfect for daily meals."},{name:"4. Mahindra 606",img:"mahindra.jpeg",desc:"A robust variety with excellent yield and grain quality, preferred for bulk catering."},{name:"5. Sathayu",img:"sathayu.jpeg",desc:"A traditional variety known for its longevity and retention of freshness after cooking."},{name:"6. Om 3",img:"om3.jpeg",desc:"High-quality grain with a distinct texture, widely used in South Indian cuisine."},{name:"7. White Ponni",img:"white-ponni.jpeg",desc:"The classic Tamil Nadu favorite. Soft, tasty, and perfect for Sambar and Rasam."},{name:"8. Co 51",img:"co51.jpeg",desc:"A modern high-yield variety that ensures consistency in grain size and cooking time."},{name:"9. ADT 37",img:"adt37.jpeg",desc:"Short grain variety, excellent for making idli and dosa batter due to its fermentation qualities."}];const e=document.getElementById("riceGrid");r.forEach(i=>{const d=document.createElement("div");d.className="rice-card",d.innerHTML=`<div class="rice-img-box"><img src="" data-src="${i.img}" alt="${i.name}" loading="lazy" width="300" height="250"></div><div class="rice-info"><h3>${i.name}</h3><p style="font-size:0.9rem;">Tap for Details</p></div>`,d.addEventListener("click",()=>openModal(i)),e.appendChild(d)});const t=document.getElementById("productModal"),a=document.getElementById("modalImg"),o=document.getElementById("modalTitle"),l=document.getElementById("modalDesc"),c=document.querySelector(".close-btn"),s=document.getElementById("mainEnquireBtn"),n=document.getElementById("enquiryOptions");function openModal(i){t.style.display="flex",a.src=i.img,o.innerText=i.name,l.innerText=i.desc,s.style.display="block",n.style.display="none"}s.addEventListener("click",()=>{s.style.display="none",n.style.display="flex"}),c.addEventListener("click",e=>{e.stopPropagation(),t.style.display="none"}),t.addEventListener("click",function(i){i.target===t&&(t.style.display="none")});const m=new IntersectionObserver((i,d)=>{i.forEach(i=>{if(i.isIntersecting){const e=i.target;e.src=e.dataset.src,e.removeAttribute("data-src"),d.unobserve(e)}})},{rootMargin:"50px"});setTimeout(()=>{document.querySelectorAll("img[data-src]").forEach(i=>{m.observe(i)})},100)}
+        function initApp(){const r=[{name:"1. RNR",img:"rnr.png",desc:"Aromatic, fine grain rice known for its low glycemic index, making it ideal for health-conscious consumers."},{name:"2. Siri",img:"siri.png",desc:"Known for its rich taste and fluffy texture upon cooking. A staple for special occasions."},{name:"3. BPT",img:"bpt.jpeg",desc:"Also known as Sona Masoori, this lightweight and aromatic rice is perfect for daily meals."},{name:"4. Mahindra 606",img:"mahindra.jpeg",desc:"A robust variety with excellent yield and grain quality, preferred for bulk catering."},{name:"5. Sathayu",img:"sathayu.jpeg",desc:"A traditional variety known for its longevity and retention of freshness after cooking."},{name:"6. Om 3",img:"om3.jpeg",desc:"High-quality grain with a distinct texture, widely used in South Indian cuisine."},{name:"7. White Ponni",img:"white-ponni.jpeg",desc:"The classic Tamil Nadu favorite. Soft, tasty, and perfect for Sambar and Rasam."},{name:"8. Co 51",img:"co51.jpeg",desc:"A modern high-yield variety that ensures consistency in grain size and cooking time."},{name:"9. ADT 37",img:"adt37.jpeg",desc:"Short grain variety, excellent for making idli and dosa batter due to its fermentation qualities."}];const e=document.getElementById("riceGrid");r.forEach(i=>{const d=document.createElement("div");d.className="rice-card",d.innerHTML=`<div class="rice-img-box"><img src="" data-src="${i.img}" alt="${i.name}" loading="lazy" width="300" height="250"></div><div class="rice-info"><h3>${i.name}</h3><p style="font-size:0.9rem;">Tap for Details</p></div>`,d.addEventListener("click",()=>openModal(i)),e.appendChild(d)});const t=document.getElementById("productModal"),a=document.getElementById("modalImg"),o=document.getElementById("modalTitle"),l=document.getElementById("modalDesc"),c=document.querySelector(".close-btn"),s=document.getElementById("mainEnquireBtn"),n=document.getElementById("enquiryOptions"),w=document.getElementById("whatsappLink");function openModal(i){t.style.display="flex",a.src=i.img,o.innerText=i.name,l.innerText=i.desc,s.style.display="block",n.style.display="none";const p=`Hi! I am interested in your ${i.name} rice product. Could you please provide more details and pricing?`;w.href=`https://wa.me/917045037234?text=${encodeURIComponent(p)}`}s.addEventListener("click",()=>{s.style.display="none",n.style.display="flex"}),c.addEventListener("click",e=>{e.stopPropagation(),t.style.display="none"}),t.addEventListener("click",function(i){i.target===t&&(t.style.display="none")});const m=new IntersectionObserver((i,d)=>{i.forEach(i=>{if(i.isIntersecting){const e=i.target;e.src=e.dataset.src,e.removeAttribute("data-src"),d.unobserve(e)}})},{rootMargin:"50px"});setTimeout(()=>{document.querySelectorAll("img[data-src]").forEach(i=>{m.observe(i)})},100)}
         
         if("loading"===document.readyState)document.addEventListener("DOMContentLoaded",initApp,{once:!0});else initApp();
+
+        // Contact Modal Functions
+        function handleContactClick(name, phone) {
+            const contactModal = document.getElementById('contactModal');
+            const contactName = document.getElementById('contactName');
+            const contactPhone = document.getElementById('contactPhone');
+            const contactCall = document.getElementById('contactCall');
+            const contactWhatsapp = document.getElementById('contactWhatsapp');
+            
+            contactName.textContent = 'Mr. ' + name;
+            contactPhone.textContent = phone;
+            contactCall.href = 'tel:' + phone;
+            
+            const whatsappMessage = `Hi Mr. ${name}, I would like to know more about your premium rice products and bulk order options.`;
+            contactWhatsapp.href = `https://wa.me/${phone.replace(/\D/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            contactModal.style.display = 'flex';
+        }
+
+        function closeContactModal() {
+            const contactModal = document.getElementById('contactModal');
+            contactModal.style.display = 'none';
+        }
+
+        // Close contact modal when clicking outside
+        const contactModal = document.getElementById('contactModal');
+        contactModal.addEventListener('click', function(event) {
+            if (event.target === contactModal) {
+                contactModal.style.display = 'none';
+            }
+        });
 
         // Video Mute/Unmute Button
         document.addEventListener('DOMContentLoaded', function() {
